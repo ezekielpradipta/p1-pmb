@@ -85,11 +85,16 @@ const filter = reactive({
   valid: "",
 });
 const headers = [
-  { key: "email", label: "Email" },
-  { key: "name", label: "Username" },
-  { key: "is_valid", label: "Status", moreView: "Validasi", prkey: "id" },
+  { key: "user_email", label: "Email" },
+  { key: "nama_camaba", label: "Nama" },
   {
-    key: "id",
+    key: "user_is_valid",
+    label: "Status",
+    moreView: "Validasi",
+    prkey: "user_id",
+  },
+  {
+    key: "user_id",
     label: "Aksi",
     route: "AdminUserView",
     moreView: "Aksi-Full",

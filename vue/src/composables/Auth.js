@@ -1,7 +1,12 @@
 import axiosClient from "../axios";
 import jwt_decode from "jwt-decode";
 import router from "../router";
+import { createToaster } from "@meforma/vue-toaster";
 export default function useAuth() {
+    const toaster = createToaster({
+        position: "top-right",
+        duration: 3000,
+    });
     const login = async (data) => {
         await axiosClient
             .post("/login", data)
@@ -74,6 +79,9 @@ export default function useAuth() {
     };
     const verifEmail = async (id) => {
         let response = await axiosClient.post(`/akun/verif-email/${id}`);
+        toaster.success(
+            "Akun Anda Berhasil Terverifikasi, Silahkan Login Ulang"
+        );
         logout();
     };
     return {

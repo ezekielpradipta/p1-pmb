@@ -33,16 +33,6 @@
                 </base-input>
               </div>
             </div>
-            <div class="col-span-1">
-              <base-input
-                v-model="model.name"
-                type="text"
-                name="name"
-                label="Username"
-                placeholder="Your Name"
-              >
-              </base-input>
-            </div>
           </div>
           <div class="grid xl:grid-cols-2 xl:gap-6 mb-6">
             <div class="col-span-1">

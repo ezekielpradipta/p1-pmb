@@ -8,8 +8,6 @@
           user.validate.email
         }}</span></BaseInput
       >
-      <BaseInput v-model="user.name" type="text" name="name" label="Username" />
-
       <BaseInput
         type="password"
         name="password"
@@ -47,7 +45,6 @@ const { cekEmail } = useUtil();
 const user = reactive({
   email: "",
   password: "",
-  name: "",
   password_confirmation: "",
   validate: [],
 });

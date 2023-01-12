@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('camabas', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->enum('is_valid',['0','1'])->default('0');
-            $table->enum('is_mahasiswa',['0','1'])->default('0');
-            $table->string('password');
+            $table->foreignIdFor(\App\Models\User::class, 'user_id');
+            $table->string('nama_camaba');
+            $table->string('tempat_lahir');
+            $table->string('tanggal_lahir');
+            $table->string('jenis_kelamin');
+            $table->string('wilayah');
+            $table->string('file_upload')->nullable(); 
             $table->timestamps();
         });
     }
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('camabas');
     }
 };

@@ -141,6 +141,7 @@ router.beforeEach((to, from, next) => {
             }
         }
     }
+
     if (to.matched.some((record) => record.meta.isValid)) {
         let gtToken = localStorage.getItem("token");
         let dcd = jwt_decode(gtToken);
@@ -156,6 +157,7 @@ router.beforeEach((to, from, next) => {
             return;
         }
     }
+
     if (to.matched.some((record) => record.meta.requiresAuth)) {
         let token = localStorage.getItem("token") != null;
         if (!token) {
