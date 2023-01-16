@@ -30,6 +30,7 @@ Route::post('/newPassword/{id}',[AuthController::class,'newPassword']);
 
 
 Route::post('/cek/email',[UtilController::class,'cekEmail']);
+Route::get('/getWilayah',[UtilController::class,'getWilayah']);
 Route::middleware('auth:api')->group(function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::prefix('admin')->group(function(){
