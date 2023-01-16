@@ -24,6 +24,7 @@ class AdminUserController extends Controller
         $user = DB::table('role_user')->select('camabas.id','camabas.nama_camaba','users.id as user_id','users.email as user_email','users.is_valid as user_is_valid','users.is_mahasiswa as user_is_mahasiswa','camabas.tempat_lahir','camabas.tanggal_lahir','camabas.jenis_kelamin','camabas.wilayah','camabas.file_upload')
         ->join('users', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', 2)->leftJoin('camabas','camabas.user_id','=','users.id')->whereRaw("users.email like '%$filter_email%'  AND users.is_valid like '%$filter_valid%'")->orderBy('users.id', 'asc')
         ->paginate(10);
+        
         return CamabaResource::collection($user);
         // return response()->json($user);
     }
@@ -34,25 +35,23 @@ class AdminUserController extends Controller
             $validator = Validator::make($request->all(), [
 
                 'email'     => 'required|email|unique:users|indisposable',
-                'password'  => 'required|min:8|confirmed'
+                'password'  => 'required|min:8|'
             ], [
     
                 'email.required' => 'Email Tidak Boleh Kosong',
                 'email.email' => "Format Email salah",
                 'password.required' => 'Password Tidak Boleh Kosong',
                 'password.min' => 'Password Kurang dari 8 Digit',
-                'password.confirmed' => 'Password Tidak Sama',
                 'email.indisposable' => "Email Fake",
             ]);
         } else {
             $validator = Validator::make($request->all(), [
 
-                'password'  => 'required|min:8|confirmed'
+                'password'  => 'required|min:8|'
             ], [
  
                 'password.required' => 'Password Tidak Boleh Kosong',
                 'password.min' => 'Password Kurang dari 8 Digit',
-                'password.confirmed' => 'Password Tidak Sama',
 
             ]);
         }

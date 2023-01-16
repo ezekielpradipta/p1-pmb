@@ -6,12 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CamabaResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
+
     public function toArray($request)
     {
         return [
@@ -20,6 +15,7 @@ class CamabaResource extends JsonResource
             'user_email'=>$this->user_email,
             'user_is_valid'=>$this->user_is_valid,
             'user_is_mahasiswa'=>$this->user_is_mahasiswa,
+            // 'user' => new UserResource($this),
             'nama_camaba'=>$this->nama_camaba,
             'tempat_lahir'=>$this->tempat_lahir,
             'tanggal_lahir'=>$this->tanggal_lahir,

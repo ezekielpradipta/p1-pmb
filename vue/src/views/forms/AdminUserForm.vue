@@ -5,7 +5,7 @@
     <base-card>
       <form-master @submit="onSubmit">
         <form-step>
-          <div class="grid xl:grid-cols-2 xl:gap-6 mb-6">
+          <div class="grid xl:grid-cols-2 xl:gap-6 mb-8">
             <div class="col-span-1">
               <div v-if="model.is_update">
                 <base-input
@@ -33,8 +33,6 @@
                 </base-input>
               </div>
             </div>
-          </div>
-          <div class="grid xl:grid-cols-2 xl:gap-6 mb-6">
             <div class="col-span-1">
               <base-input
                 v-model="model.password"
@@ -44,24 +42,65 @@
                 placeholder="Your Password...."
               ></base-input>
             </div>
-            <div class="col-span-1">
-              <base-input
-                v-model="model.password_confirmation"
-                type="password"
-                id="password_confirmation"
-                label="Konfirmasi Password"
-              ></base-input>
-            </div>
           </div>
-        </form-step> </form-master
-    ></base-card>
+          <div class="w-16 h-16 mx-auto my-8">
+            <img class="w-auto" src="/images/icon.png" alt="" />
+          </div>
+          <div class="p-5">
+            <TabGroup>
+              <TabList
+                class="flex bg-white justify-center mb-6 dark:bg-dark-new"
+              >
+                <Tab
+                  v-for="menu in kategori"
+                  as="template"
+                  :key="menu"
+                  v-slot="{ selected }"
+                >
+                  <button
+                    class="font-semibold"
+                    :class="[
+                      'px-3 py-1 text-sm leading-5 ',
+                      'focus:outline-none',
+                      selected
+                        ? 'text-blue-500 border-b-2 border-blue-500'
+                        : 'text-gray-600',
+                    ]"
+                  >
+                    {{ menu }}
+                  </button>
+                </Tab>
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <div class="grid xl:grid-cols-2 xl:gap-6 mb-6">
+                    <div class="col-span-1">
+                      <base-input
+                        v-model="model.email"
+                        type="email"
+                        name="email"
+                        label="Nama"
+                        placeholder="Your Name..."
+                      >
+                        <span class="text-sm text-red-500">*Sesuai Ijazah</span>
+                      </base-input>
+                    </div>
+                  </div>
+                </TabPanel>
+              </TabPanels>
+            </TabGroup>
+          </div>
+        </form-step>
+      </form-master></base-card
+    >
   </parent-transition>
 </template>
 
 <script setup>
-import { reactive, watch } from "vue";
+import { reactive, watch, ref } from "vue";
 import { useRoute } from "vue-router";
 import useUtil from "../../composables/Util";
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import useAdminUser from "../../composables/AdminUser";
 const { cekEmail } = useUtil();
 const { createUser, user, getUser } = useAdminUser();
@@ -75,6 +114,7 @@ const model = reactive({
   id: null,
   is_update: false,
 });
+let kategori = ref(["Data Diri", "Berkas"]);
 const validateEmail = async (value) => {
   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
     await cekEmail({ ...model }).then((response) => {
