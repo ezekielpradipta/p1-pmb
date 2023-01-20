@@ -3,7 +3,8 @@
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\LogUserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserDashboardController;
+use App\Http\Controllers\User\DataDiriController;
+use App\Http\Controllers\User\UserDashboardController;
 use App\Http\Controllers\UtilController;
 
 use Illuminate\Support\Facades\Route;
@@ -30,7 +31,7 @@ Route::post('/newPassword/{id}',[AuthController::class,'newPassword']);
 
 
 Route::post('/cek/email',[UtilController::class,'cekEmail']);
-Route::get('/getWilayah',[UtilController::class,'getWilayah']);
+Route::post('/getWilayah',[UtilController::class,'getWilayah']);
 Route::middleware('auth:api')->group(function(){
     Route::post('/logout',[AuthController::class,'logout']);
     Route::prefix('admin')->group(function(){
@@ -47,6 +48,8 @@ Route::middleware('auth:api')->group(function(){
     });
     Route::prefix('user')->group(function(){
         Route::get('/cek',[UserDashboardController::class,'index']);
+        Route::get('/detail',[DataDiriController::class,'detail']);
         Route::post('/sendEmail',[UserDashboardController::class,'sendEmail']);
+        Route::post('/saveDataDiri',[DataDiriController::class,'save']);
     });
 });

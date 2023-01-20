@@ -27,9 +27,9 @@ function getRole() {
         namamenu: "dashboardA",
       },
       {
-        name: "UserPage1",
-        to: { name: "UserPage" },
-        icon: HomeIcon,
+        name: "Data Diri",
+        to: { name: "DataDiri" },
+        icon: UsersIcon,
         namamenu: "userpage1",
       },
     ];

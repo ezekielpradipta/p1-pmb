@@ -2,6 +2,9 @@
   <loader :loading="state.loading"></loader>
   <parent-transition appear :visibility="true">
     <page-header title="Home"> </page-header>
+    <p class="text-lg text-gray-900 dark:text-white mb-4">
+      Selamat {{ jam_sekarang }}, {{ data_t.user.email }} !
+    </p>
     <base-card>
       <div v-if="!data_t.isvalid">
         <div
@@ -67,7 +70,17 @@ const data_t = reactive({
   user: [],
   isvalid: null,
 });
-
+const jam = new Date().getHours();
+let jam_sekarang = "";
+if (jam > 4 && jam < 11) {
+  jam_sekarang = "Pagi";
+} else if (jam >= 11 && jam < 14) {
+  jam_sekarang = "Siang";
+} else if (jam >= 14 && jam < 18) {
+  jam_sekarang = "Sore";
+} else {
+  jam_sekarang = "Malam";
+}
 onMounted(getUser);
 watch(user, (data) => {
   data_t.user = data.data;

@@ -37,20 +37,6 @@
             placeholder="Filter Status "
             :searchable="true"
             :options="validasi_opt"
-            :classes="{
-              containerActive: 'ring ring-blue-500 ring-opacity-30',
-              tag: 'bg-blue-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
-              groupLabelSelected: 'bg-blue-600 text-white',
-              groupLabelSelectedPointed: 'bg-blue-600 text-white opacity-90',
-              groupLabelSelectedDisabled:
-                'text-blue-100 bg-purple-600 bg-opacity-50 cursor-not-allowed',
-              groupOptions: 'p-0 m-0',
-              optionSelected: 'text-white bg-blue-500',
-              optionDisabled: 'text-gray-300 cursor-not-allowed',
-              optionSelectedPointed: 'text-white bg-blue-500 opacity-90',
-              optionSelectedDisabled:
-                'text-blue-100 bg-blue-500 bg-opacity-50 cursor-not-allowed',
-            }"
             valueProp="validasi_opt"
             @select="filter_status()"
             @clear="clear_filter_status()"
@@ -85,7 +71,7 @@ const filter = reactive({
   valid: "",
 });
 const headers = [
-  { key: "user_email", label: "Email" },
+  { key: "email", label: "Email" },
   { key: "nama_camaba", label: "Nama" },
   {
     key: "user_is_valid",
@@ -165,6 +151,6 @@ const deleteID = async (id) => {
   });
 };
 </script>
-<style src="@vueform/multiselect/themes/default.css"></style>
-<style lang="scss" scoped>
-</style>
+<!-- <style src="@vueform/multiselect/themes/default.css"></style> -->
+<style lang="scss" src="../../../multiselect.css"></style>
+

@@ -33,6 +33,9 @@ axiosClient.interceptors.response.use(
         const err_status = error.response.status;
         const err_message = error.response.data.message;
         const e_code = error.response.data.e_code;
+        if (err_status === 500) {
+            toaster.error(err_message);
+        }
         if (err_status === 401) {
             toaster.error(err_status + ", " + err_message);
             localStorage.removeItem("token");

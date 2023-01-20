@@ -8,9 +8,8 @@ export default function useUtil() {
             return response;
         } catch (error) {}
     };
-    const getWilayah = async () => {
-        let response = await axiosClient.get("/getWilayah");
-
+    const getWilayah = async (data) => {
+        let response = await axiosClient.post("/getWilayah", data);
         wilayah.value = response.data;
     };
     return {

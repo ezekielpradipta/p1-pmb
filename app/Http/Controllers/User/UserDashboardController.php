@@ -1,7 +1,6 @@
 <?php
-
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\User;
+use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Mail\VerifEmailUser;
 use App\Models\EmailVerif;

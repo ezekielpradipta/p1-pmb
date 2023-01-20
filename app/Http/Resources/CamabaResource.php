@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use Illuminate\Support\Facades\URL;
 class CamabaResource extends JsonResource
 {
 
@@ -12,7 +12,7 @@ class CamabaResource extends JsonResource
         return [
             'id'=>$this->id,
             'user_id'=>$this->user_id,
-            'user_email'=>$this->user_email,
+            'email'=>$this->user_email,
             'user_is_valid'=>$this->user_is_valid,
             'user_is_mahasiswa'=>$this->user_is_mahasiswa,
             // 'user' => new UserResource($this),
@@ -21,7 +21,7 @@ class CamabaResource extends JsonResource
             'tanggal_lahir'=>$this->tanggal_lahir,
             'jenis_kelamin'=>$this->jenis_kelamin,
             'wilayah'=>$this->wilayah,
-            'file_upload'=>$this->file_upload,
+            'file_upload_url'=>$this->file_upload? URL::to($this->file_upload) : null,
            ];
     }
 }

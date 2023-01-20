@@ -12,7 +12,7 @@
       "
     >
       <svg
-        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+        class="w-5 h-5 text-gray-700 dark:text-gray-400"
         fill="currentColor"
         viewBox="0 0 20 20"
         xmlns="http://www.w3.org/2000/svg"
@@ -30,12 +30,14 @@
       type="text"
       id="table-search"
       class="
+        focus:ring-0 focus:border-blue-500
+        dark:focus:border-blue-400
         bg-white
-        border border-gray-300
-        text-gray-900 text-sm
-        rounded-lg
-        focus:ring-indigo-500 focus:border-indigo-500
+        dark:bg-dark-new
         block
+        sm:text-sm
+        border-0 border-b-2 border-gray-300
+        dark:border-gray-700 dark:text-gray-400
         pl-10
         p-2.5
         w-full

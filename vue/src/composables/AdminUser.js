@@ -24,10 +24,10 @@ export default function useAdminUser() {
         user.value = response.data;
     };
 
-    const createUser = async (data) => {
+    const createUser = async (data, config) => {
         try {
             await axiosClient
-                .post("/admin/user/save", data)
+                .post("/admin/user/save", data, config)
                 .then((response) => {
                     if (!response.response) {
                         router.push({

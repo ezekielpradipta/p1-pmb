@@ -7,12 +7,12 @@
             text-xs
             font-semibold
             tracking-wide
-            text-left text-gray-500
+            text-left text-gray-700
             uppercase
             border-b
             dark:border-gray-50
             bg-gray-50
-            dark:text-gray-300 dark:bg-dark-new
+            dark:text-gray-400 dark:bg-dark-new
           "
         >
           <th

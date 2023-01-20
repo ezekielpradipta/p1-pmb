@@ -16,7 +16,7 @@
           w-full
           sm:text-sm
           border-0 border-b-2 border-gray-300
-          dark:border-gray-700 dark:text-gray-200
+          dark:border-gray-700 dark:text-gray-400
         "
       />
       <slot></slot>

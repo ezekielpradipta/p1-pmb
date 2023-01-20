@@ -19,6 +19,7 @@
             format="yyyy-MM-dd"
             placeholder="Filter Tanggal"
             @cleared="clear_date"
+            :dark="display === 'dark' ? true : false"
           >
             <template #action-select>
               <p class="custom-select" @click="selectDate">Select</p>
@@ -33,20 +34,6 @@
             placeholder="Filter Status "
             :searchable="true"
             :options="status"
-            :classes="{
-              containerActive: 'ring ring-blue-500 ring-opacity-30',
-              tag: 'bg-blue-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
-              groupLabelSelected: 'bg-blue-600 text-white',
-              groupLabelSelectedPointed: 'bg-blue-600 text-white opacity-90',
-              groupLabelSelectedDisabled:
-                'text-blue-100 bg-purple-600 bg-opacity-50 cursor-not-allowed',
-              groupOptions: 'p-0 m-0',
-              optionSelected: 'text-white bg-blue-500',
-              optionDisabled: 'text-gray-300 cursor-not-allowed',
-              optionSelectedPointed: 'text-white bg-blue-500 opacity-90',
-              optionSelectedDisabled:
-                'text-blue-100 bg-blue-500 bg-opacity-50 cursor-not-allowed',
-            }"
             valueProp="status"
             @select="filter_status()"
             @clear="clear_filter_status()"
@@ -58,20 +45,6 @@
             placeholder="Filter List "
             :searchable="true"
             :options="filterList"
-            :classes="{
-              containerActive: 'ring ring-blue-500 ring-opacity-30',
-              tag: 'bg-blue-500 text-white text-sm font-semibold py-0.5 pl-2 rounded mr-1 mb-1 flex items-center whitespace-nowrap rtl:pl-0 rtl:pr-2 rtl:mr-0 rtl:ml-1',
-              groupLabelSelected: 'bg-blue-600 text-white',
-              groupLabelSelectedPointed: 'bg-blue-600 text-white opacity-90',
-              groupLabelSelectedDisabled:
-                'text-blue-100 bg-purple-600 bg-opacity-50 cursor-not-allowed',
-              groupOptions: 'p-0 m-0',
-              optionSelected: 'text-white bg-blue-500',
-              optionDisabled: 'text-gray-300 cursor-not-allowed',
-              optionSelectedPointed: 'text-white bg-blue-500 opacity-90',
-              optionSelectedDisabled:
-                'text-blue-100 bg-blue-500 bg-opacity-50 cursor-not-allowed',
-            }"
             label="filter"
             track-by="filter"
             valueProp="filter"
@@ -110,17 +83,17 @@
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, ref, watch } from "vue";
-
+import { inject, onMounted, reactive, ref, watch, computed } from "vue";
+import { useStore } from "vuex";
 import Multiselect from "@vueform/multiselect";
 import useLogsUser from "../../../composables/LogUser";
 import moment from "moment";
-const swal = inject("$swal");
 const { logs, getLogs, filterList, getFilter, exportLog } = useLogsUser();
 onMounted(getLogs);
 onMounted(getFilter);
 const dp = ref();
-
+const store = useStore();
+const display = computed(() => store.getters.getDisplay);
 const filter = reactive({
   email: "",
   filter: "",

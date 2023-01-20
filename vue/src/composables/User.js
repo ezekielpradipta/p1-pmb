@@ -6,8 +6,23 @@ export default function useUser() {
         let response = await axiosClient.get("/user/cek");
         user.value = response.data;
     };
+    const getDetailUser = async () => {
+        let response = await axiosClient.get("/user/detail");
+        user.value = response.data;
+    };
     const sendEmail = async () => {
         await axiosClient.post("/user/sendEmail");
     };
-    return { user, getUser, sendEmail };
+    const save = async (data, config) => {
+        try {
+            await axiosClient
+                .post("/user/saveDataDiri", data, config)
+                .then((response) => {
+                    if (!response.response) {
+                        sessionStorage.removeItem("model");
+                    }
+                });
+        } catch (error) {}
+    };
+    return { user, getDetailUser, getUser, sendEmail, save };
 }

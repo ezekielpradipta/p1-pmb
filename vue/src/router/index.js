@@ -58,9 +58,9 @@ const routes = [
                 },
             },
             {
-                path: "/userpage1",
-                name: "UserPage",
-                component: () => import("../views/pages/users/Page1.vue"),
+                path: "/datadiri",
+                name: "DataDiri",
+                component: () => import("../views/forms/UserDataDiriForm.vue"),
                 meta: {
                     isUser: true,
                     isValid: true,
