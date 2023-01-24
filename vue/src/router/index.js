@@ -106,6 +106,14 @@ const routes = [
                     isAdmin: true,
                 },
             },
+            {
+                path: "/admin/quiz/jenisQuiz",
+                name: "AdminQuizJenisQuiz",
+                component: () => import("../views/pages/admins/JenisQuiz.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
         ],
     },
 ];

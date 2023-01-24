@@ -37,7 +37,7 @@ class DataDiriController extends Controller
         $cekstatus = $request->is_update;
         $validator = Validator::make($request->all(), [
 
-            'file_upload' => 'required|string',
+            'file_upload' => 'required|file|max:2048',
             'nama_camaba' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',
@@ -48,6 +48,7 @@ class DataDiriController extends Controller
             'tempat_lahir.required' => 'Tempat Lahir Tidak Boleh Kosong',
             'tanggal_lahir.required' => 'Tanggal Lahir Tidak Boleh Kosong',
             'wilayah.required' => 'Wilayah Tidak Boleh Kosong',
+            'file_upload.max' => 'Ukuran File Maksimal 2Mb',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors(), 'e_code' => "10"], 400);
@@ -67,8 +68,6 @@ class DataDiriController extends Controller
         } else{
             $file__ = null;
         }
-        // return response()->json($file__);
-
         $camaba = Camaba::updateOrCreate(['user_id' => $user_id], [
             'nama_camaba' => $request->nama_camaba,
             'tempat_lahir' => $request->tempat_lahir,
@@ -77,7 +76,7 @@ class DataDiriController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'file_upload' => $file__,
         ]);
-        $status = $cekstatus === "false" ? "REGISTER Data Diri" : "Update DATA Diri";
+        $status = $cekstatus === "false" ? "REGISTER Data" : "Update DATA";
         $keterangan = $cekstatus === "false" ? "User " . $request->email . ' Berhasil Mengisi Data Diri.' : "User " . $request->email . " Berhasil Mengupdate Data Diri";
         $log = LogUser::create([
             'ip' => $request->ip(),

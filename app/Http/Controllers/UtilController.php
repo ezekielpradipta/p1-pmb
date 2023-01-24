@@ -52,38 +52,32 @@ class UtilController extends Controller
     }
     public function saveImage($image, $folder_name)
     {
-        if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
-            // Take out the base64 encoded text without mime type
-            $image = substr($image, strpos($image, ',') + 1);
-            // Get file extension
-            $type = strtolower($type[1]); // jpg, png, gif
+        // if (preg_match('/^data:image\/(\w+);base64,/', $image, $type)) {
+        //     $image = substr($image, strpos($image, ',') + 1);
+        //     $type = strtolower($type[1]); 
+        //     if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
+        //         throw new \Exception('invalid image type');
+        //     }
+        // if (strlen($image) > 2048000) {
+        //     throw new \Exception('image size exceeded '. 2048000/1024 .' KB');
+        // }
+        //     $image = str_replace(' ', '+', $image);
+        //     $image = base64_decode($image);
 
-            // Check if file is an image
-            if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
-                throw new \Exception('invalid image type');
-            }
-                    // Check file size
-        if (strlen($image) > 2048000) {
-            throw new \Exception('image size exceeded '. 2048000/1024 .' KB');
-        }
-            $image = str_replace(' ', '+', $image);
-            $image = base64_decode($image);
-
-            if ($image === false) {
-                throw new \Exception('base64_decode failed');
-            }
-        } else {
-            throw new \Exception('Format File BUkan JPG/JPEG/GIF/PNG');
-        }
-
+        //     if ($image === false) {
+        //         throw new \Exception('base64_decode failed');
+        //     }
+        // } else {
+        //     throw new \Exception('Format File BUkan JPG/JPEG/GIF/PNG');
+        // }
         $dir = 'images/' . $folder_name . '/';
-        $file = Str::random() . '.' . $type;
+        $filename = date('YmdHis') . '-' . $image->getClientOriginalName();
         $absolutePath = public_path($dir);
-        $relativePath = $dir . $file;
+        $relativePath = $dir . $filename;
         if (!File::exists($absolutePath)) {
             File::makeDirectory($absolutePath, 0755, true);
         }
-        file_put_contents($relativePath, $image);
+        $image->move($absolutePath, $filename);
 
         return $relativePath;
     }

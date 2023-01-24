@@ -1,5 +1,4 @@
 <template>
-  <pre>{{ model }}</pre>
   <parent-transition appear :visibility="true">
     <page-header
       title="Data Diri"
@@ -103,7 +102,7 @@
           </form-step>
           <form-step>
             <div class="grid xl:grid-cols-3 xl:gap-6">
-              <div class="col-span-1">
+              <!-- <div class="col-span-1">
                 <base-label Title="Upload File" class="mb-1"></base-label>
                 <img
                   v-if="model.file_upload_url"
@@ -157,8 +156,9 @@
                   type="file"
                   v-on:change="onUploadFile"
                 />
-              </div>
+              </div> -->
               <div class="col-span-1">
+                <base-label Title="Upload File" class="mb-1"></base-label>
                 <file-pond
                   name="test"
                   ref="pond"
@@ -179,27 +179,24 @@
   
   <script setup>
 import Multiselect from "@vueform/multiselect";
-import { reactive, watch, ref, onMounted, onBeforeUnmount } from "vue";
+import {
+  reactive,
+  watch,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  watchEffect,
+  computed,
+} from "vue";
 import useUtil from "../../composables/Util";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import useUser from "../../composables/User";
 import vueFilePond from "vue-filepond";
-
-// Import FilePond styles
 import "filepond/dist/filepond.min.css";
-
-// Import FilePond plugins
-// Please note that you need to install these plugins separately
-
-// Import image preview plugin styles
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
-
-// Import image preview and file type validation plugins
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
-
-// Create component
 const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview
@@ -218,12 +215,8 @@ const model = reactive({
   file_upload: null,
   file_upload_url: null,
   jenis_kelamin: "",
-  coba: "",
 });
 const jenis_kelamin = { L: "Laki-Laki", P: "Perempuan" };
-const filter = reactive({
-  filter_query: "",
-});
 const config = ref({
   wrap: true, // set wrap to true only when using 'input-group'
   dateFormat: "Y-m-d",
@@ -234,13 +227,14 @@ const config_file = {
     "Content-Type": "multipart/form-data",
   },
 };
-watch(
-  () => model,
-  (val) => {
-    localStorage.setItem("model-data-diri", JSON.stringify(val));
-  },
-  { deep: true }
-);
+const modelDataDiri = computed(() => {
+  const { file_upload, ...data } = model;
+  return data;
+});
+
+watchEffect(() => {
+  localStorage.setItem("model-data-diri", JSON.stringify(modelDataDiri.value));
+});
 watch(user, (data) => {
   if (data) {
     Object.assign(model, data.data[0]);
@@ -253,9 +247,8 @@ onMounted(() => {
     Object.assign(model, storedModel);
   }
 });
-const cobaaaaa = async () => {
-  console.log("AAAAAAAAAAAAAA");
-  model.file_upload_url = null;
+const cobaaaaa = async (ev) => {
+  model.file_upload = ev.target.files[0];
 };
 const handleBeforeUnload = (e) => {
   localStorage.setItem("CCCC", "AAAAAAAAAAA");

@@ -167,57 +167,15 @@
                   <div class="grid xl:grid-cols-3 xl:gap-6">
                     <div class="col-span-1">
                       <base-label Title="Upload File" class="mb-1"></base-label>
-                      <img
-                        v-if="model.file_upload_url"
-                        :src="model.file_upload_url"
-                        :alt="model.nama_camaba"
-                        class="w-64 h-48 object-cover"
-                      />
-                      <span
-                        v-else
-                        class="
-                          flex
-                          items-center
-                          justify-center
-                          h-12
-                          w-12
-                          rounded-full
-                          overflow-hidden
-                          bg-gray-100
-                        "
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-[80%] w-[80%] text-gray-300"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <input
-                        class="
-                          block
-                          w-full
-                          text-sm text-gray-900
-                          border border-gray-300
-                          rounded-lg
-                          cursor-pointer
-                          bg-gray-50
-                          dark:text-gray-400
-                          focus:outline-none
-                          dark:bg-dark-body-new
-                          dark:border-gray-600
-                          dark:placeholder-gray-400
-                        "
-                        aria-describedby="file_input_help"
-                        id="file_upload"
-                        type="file"
-                        v-on:change="onUploadFile"
+                      <file-pond
+                        name="test"
+                        ref="pond"
+                        label-idle="Drop files here..."
+                        v-bind:allow-multiple="false"
+                        accepted-file-types="image/jpeg, image/png"
+                        v-on:change="cobaaaaa"
+                        v-bind:files="model.file_upload_url"
+                        v-on:removefile="removeFile"
                       />
                     </div>
                   </div>
@@ -239,6 +197,15 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from "@headlessui/vue";
 import useAdminUser from "../../composables/AdminUser";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+const FilePond = vueFilePond(
+  FilePondPluginFileValidateType,
+  FilePondPluginImagePreview
+);
 const { cekEmail, wilayah, getWilayah } = useUtil();
 const { createUser, user, getUser } = useAdminUser();
 const route = useRoute();
@@ -295,16 +262,11 @@ watch(
     validateEmail(newValue);
   }
 );
-const onUploadFile = async (ev) => {
-  // model.file_upload = ev.target.files[0];
-  const file = ev.target.files[0];
-  const reader = new FileReader();
-  reader.onload = () => {
-    model.file_upload = reader.result;
-    model.file_upload_url = reader.result;
-    ev.target.value = "";
-  };
-  reader.readAsDataURL(file);
+const cobaaaaa = async (ev) => {
+  model.file_upload = ev.target.files[0];
+};
+const removeFile = async (ev) => {
+  model.file_upload = null;
 };
 const onSubmit = async () => {
   let data_form = new FormData();

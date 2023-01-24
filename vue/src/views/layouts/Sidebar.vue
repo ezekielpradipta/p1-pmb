@@ -9,6 +9,7 @@ import {
   CalculatorIcon,
   DocumentIcon,
   HomeIcon,
+  LightBulbIcon,
   PlusIcon,
   UserGroupIcon,
 } from "@heroicons/vue/24/outline";
@@ -49,6 +50,13 @@ function getRole() {
         namamenu: "adminpage1",
       },
       {
+        name: "Config Quiz",
+        to: { name: "" },
+        icon: LightBulbIcon,
+        namamenu: "adminconfigquiz",
+        submenu: true,
+      },
+      {
         name: "Log User",
         to: { name: "LogUsers" },
         icon: BookOpenIcon,
@@ -58,6 +66,13 @@ function getRole() {
     return navigation;
   }
 }
+const submenulist = [
+  {
+    name: "Jenis Quiz",
+    to: { name: "AdminQuizJenisQuiz" },
+    namamenu: "adminconfigquiz",
+  },
+];
 
 let store = useStore();
 const route = useRoute();
@@ -91,7 +106,6 @@ const removeOverlay = () => {
   //}
   toggleSelectedParentMenu();
 };
-
 let toggleSelectedParentMenu = () => {
   let currentParentUrl = route.path.split("/").filter((x) => x !== "")[0];
 
@@ -125,7 +139,6 @@ let toggleSubMenu = (e) => {
     class="side-content-wrap"
     @mouseenter="isMenuOver = true"
     @mouseleave="isMenuOver = false"
-    @touchstart="isMenuOver = true"
   >
     <div class="side-content-wrap">
       <div
@@ -193,7 +206,7 @@ let toggleSubMenu = (e) => {
         }"
         class="sidebar-left-secondary shadow"
       >
-        <!-- <ul
+        <ul
           v-for="item in submenulist"
           :key="item.name"
           class="mb-4 childNav"
@@ -201,7 +214,7 @@ let toggleSubMenu = (e) => {
           :class="selectedParentMenu == item.namamenu ? 'block' : 'hidden'"
         >
           <li>
-            <router-link :to="item.to">
+            <router-link :to="item.to" @click="removeOverlay">
               <i class="nav-icon mr-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -221,7 +234,7 @@ let toggleSubMenu = (e) => {
               <p>{{ item.name }}</p>
             </router-link>
           </li>
-        </ul> -->
+        </ul>
       </div>
     </div>
 

@@ -47,7 +47,7 @@ class AdminUserController extends Controller
 
                 'email'     => 'required|email|unique:users|indisposable',
                 'password'  => 'required|min:8|',
-                'file_upload' => 'nullable|string',
+                'file_upload' => 'required|file|max:2048',
                 'nama_camaba' => 'required',
                 'tempat_lahir' => 'required',
                 'tanggal_lahir' => 'required',
