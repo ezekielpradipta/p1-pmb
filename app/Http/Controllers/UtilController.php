@@ -62,6 +62,10 @@ class UtilController extends Controller
             if (!in_array($type, ['jpg', 'jpeg', 'gif', 'png'])) {
                 throw new \Exception('invalid image type');
             }
+                    // Check file size
+        if (strlen($image) > 2048000) {
+            throw new \Exception('image size exceeded '. 2048000/1024 .' KB');
+        }
             $image = str_replace(' ', '+', $image);
             $image = base64_decode($image);
 

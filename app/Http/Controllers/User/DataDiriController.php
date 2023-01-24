@@ -21,11 +21,16 @@ class DataDiriController extends Controller
         $this->dariUtil = $dariUtil;
     }
 
-    public function detail(Request $request){
-        $user = DB::table('role_user')->select('camabas.id', 'camabas.nama_camaba', 'users.id as user_id', 'users.email as user_email', 'users.is_valid as user_is_valid', 'users.is_mahasiswa as user_is_mahasiswa', 'camabas.tempat_lahir', 'camabas.tanggal_lahir', 'camabas.jenis_kelamin', 'camabas.wilayah', 'camabas.file_upload')
-        ->join('users', 'users.id', '=', 'role_user.user_id')->where('role_user.role_id', 2)->leftJoin('camabas', 'camabas.user_id', '=', 'users.id')->where('users.id', Auth::user()->id)->get();
+    public function detail(){
+        $user = DB::table('users')->select('camabas.id', 'camabas.nama_camaba', 'users.id as user_id', 'users.email as user_email', 'users.is_valid as user_is_valid', 'users.is_mahasiswa as user_is_mahasiswa', 'camabas.tempat_lahir', 'camabas.tanggal_lahir', 'camabas.jenis_kelamin', 'camabas.wilayah', 'camabas.file_upload')
+       ->leftJoin('camabas', 'camabas.user_id', '=', 'users.id')->where('users.id', Auth::user()->id)->get();
+
     return CamabaResource::collection($user);
     }
+    // public function detail(){
+    // $user = DB::table('camabas')->where('user_id',Auth::user()->id)->first();
+    // return response()->json($user);
+    // }
     public function save(Request $request)
     {
 
@@ -59,6 +64,8 @@ class DataDiriController extends Controller
             }
         } else if ($camaba) {
             $file__ = $camaba->file_upload;
+        } else{
+            $file__ = null;
         }
         // return response()->json($file__);
 

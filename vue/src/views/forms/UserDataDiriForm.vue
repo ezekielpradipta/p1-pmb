@@ -158,6 +158,17 @@
                   v-on:change="onUploadFile"
                 />
               </div>
+              <div class="col-span-1">
+                <file-pond
+                  name="test"
+                  ref="pond"
+                  label-idle="Drop files here..."
+                  v-bind:allow-multiple="false"
+                  accepted-file-types="image/jpeg, image/png"
+                  v-on:change="cobaaaaa"
+                  v-bind:files="model.file_upload_url"
+                />
+              </div>
             </div>
           </form-step>
         </form-master>
@@ -168,11 +179,32 @@
   
   <script setup>
 import Multiselect from "@vueform/multiselect";
-import { reactive, watch, ref, onMounted } from "vue";
+import { reactive, watch, ref, onMounted, onBeforeUnmount } from "vue";
 import useUtil from "../../composables/Util";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 import useUser from "../../composables/User";
+import vueFilePond from "vue-filepond";
+
+// Import FilePond styles
+import "filepond/dist/filepond.min.css";
+
+// Import FilePond plugins
+// Please note that you need to install these plugins separately
+
+// Import image preview plugin styles
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+
+// Import image preview and file type validation plugins
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
+// Create component
+const FilePond = vueFilePond(
+  FilePondPluginFileValidateType,
+  FilePondPluginImagePreview
+);
+
 const { save, getDetailUser, user } = useUser();
 const { wilayah, getWilayah } = useUtil();
 onMounted(getWilayah);
@@ -186,6 +218,7 @@ const model = reactive({
   file_upload: null,
   file_upload_url: null,
   jenis_kelamin: "",
+  coba: "",
 });
 const jenis_kelamin = { L: "Laki-Laki", P: "Perempuan" };
 const filter = reactive({
@@ -204,7 +237,7 @@ const config_file = {
 watch(
   () => model,
   (val) => {
-    sessionStorage.setItem("model", JSON.stringify(val));
+    localStorage.setItem("model-data-diri", JSON.stringify(val));
   },
   { deep: true }
 );
@@ -215,14 +248,31 @@ watch(user, (data) => {
   }
 });
 onMounted(() => {
-  const storedModel = JSON.parse(sessionStorage.getItem("model"));
+  const storedModel = JSON.parse(localStorage.getItem("model-data-diri"));
   if (storedModel) {
     Object.assign(model, storedModel);
   }
 });
+const cobaaaaa = async () => {
+  console.log("AAAAAAAAAAAAAA");
+  model.file_upload_url = null;
+};
+const handleBeforeUnload = (e) => {
+  localStorage.setItem("CCCC", "AAAAAAAAAAA");
+};
+onMounted(() => {
+  window.addEventListener("beforeunload", handleBeforeUnload);
+});
+onBeforeUnmount(() => {
+  window.removeEventListener("beforeunload", handleBeforeUnload);
+});
 const onUploadFile = async (ev) => {
   // model.file_upload = ev.target.files[0];
   const file = ev.target.files[0];
+  if (file.size > 2 * 1024 * 1024) {
+    alert("File size must be less than 2MB");
+    return;
+  }
   const reader = new FileReader();
   reader.onload = () => {
     model.file_upload = reader.result;

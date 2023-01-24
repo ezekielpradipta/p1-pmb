@@ -19,7 +19,7 @@ export default function useUser() {
                 .post("/user/saveDataDiri", data, config)
                 .then((response) => {
                     if (!response.response) {
-                        sessionStorage.removeItem("model");
+                        localStorage.removeItem("model-data-diri");
                     }
                 });
         } catch (error) {}
