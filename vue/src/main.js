@@ -29,7 +29,8 @@ import ProfileDropdown from "./views/layouts/Custom/ProfileDropdown.vue";
 import VueCountdown from "@chenfengyuan/vue-countdown";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import App from "./App.vue";
 
 createApp(App)
@@ -50,6 +51,7 @@ createApp(App)
     .component("ProfileDropdown", ProfileDropdown)
     .component(VueCountdown.name, VueCountdown)
     .component("Datepicker", Datepicker)
+    .component("QuillEditor", QuillEditor)
     .use(PerfectScrollbar)
     .use(VueSweetalert2)
     .use(store)

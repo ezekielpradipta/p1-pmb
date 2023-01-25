@@ -72,6 +72,11 @@ const submenulist = [
     to: { name: "AdminQuizJenisQuiz" },
     namamenu: "adminconfigquiz",
   },
+  {
+    name: "Master Quiz",
+    to: { name: "AdminQuizMasterQuiz" },
+    namamenu: "adminconfigquiz",
+  },
 ];
 
 let store = useStore();
@@ -341,7 +346,7 @@ let toggleSubMenu = (e) => {
     width: 220px;
     padding: 0.75rem 0;
     transition: all 0.24s ease-in-out;
-    @apply bg-white   dark:bg-dark-new;
+    @apply bg-white   dark:bg-dark-new text-gray-600 dark:text-gray-300;
 
     &.open {
       left: 120px;

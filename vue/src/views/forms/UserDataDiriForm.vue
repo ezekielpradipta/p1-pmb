@@ -259,21 +259,20 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener("beforeunload", handleBeforeUnload);
 });
-const onUploadFile = async (ev) => {
-  // model.file_upload = ev.target.files[0];
-  const file = ev.target.files[0];
-  if (file.size > 2 * 1024 * 1024) {
-    alert("File size must be less than 2MB");
-    return;
-  }
-  const reader = new FileReader();
-  reader.onload = () => {
-    model.file_upload = reader.result;
-    model.file_upload_url = reader.result;
-    ev.target.value = "";
-  };
-  reader.readAsDataURL(file);
-};
+// const onUploadFile = async (ev) => {
+//   const file = ev.target.files[0];
+//   if (file.size > 2 * 1024 * 1024) {
+//     alert("File size must be less than 2MB");
+//     return;
+//   }
+//   const reader = new FileReader();
+//   reader.onload = () => {
+//     model.file_upload = reader.result;
+//     model.file_upload_url = reader.result;
+//     ev.target.value = "";
+//   };
+//   reader.readAsDataURL(file);
+// };
 const onSubmit = async () => {
   let data_form = new FormData();
   data_form.append("nama_camaba", model.nama_camaba);

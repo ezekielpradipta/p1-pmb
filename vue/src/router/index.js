@@ -132,6 +132,32 @@ const routes = [
                     isAdmin: true,
                 },
             },
+            {
+                path: "/admin/quiz/masterQuiz",
+                name: "AdminQuizMasterQuiz",
+                component: () => import("../views/pages/admins/MasterQuiz.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
+            {
+                path: "/admin/quiz/masterQuiz/create",
+                name: "AdminQuizMasterQuizForm",
+                component: () =>
+                    import("../views/forms/AdminQuizMasterQuizForm.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
+            {
+                path: "/admin/quiz/masterQuiz/edit/:id",
+                name: "AdminQuizMasterQuizView",
+                component: () =>
+                    import("../views/forms/AdminQuizMasterQuizForm.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
         ],
     },
 ];
