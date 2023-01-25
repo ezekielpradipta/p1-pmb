@@ -114,6 +114,24 @@ const routes = [
                     isAdmin: true,
                 },
             },
+            {
+                path: "/admin/quiz/jenisQuiz/create",
+                name: "AdminQuizJenisQuizForm",
+                component: () =>
+                    import("../views/forms/AdminQuizJenisQuizForm.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
+            {
+                path: "/admin/quiz/jenisQuiz/edit/:id",
+                name: "AdminQuizJenisQuizView",
+                component: () =>
+                    import("../views/forms/AdminQuizJenisQuizForm.vue"),
+                meta: {
+                    isAdmin: true,
+                },
+            },
         ],
     },
 ];

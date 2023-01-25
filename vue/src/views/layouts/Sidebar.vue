@@ -341,7 +341,7 @@ let toggleSubMenu = (e) => {
     width: 220px;
     padding: 0.75rem 0;
     transition: all 0.24s ease-in-out;
-    background: #fff;
+    @apply bg-white   dark:bg-dark-new;
 
     &.open {
       left: 120px;
@@ -390,10 +390,10 @@ let toggleSubMenu = (e) => {
           transition: 0.15s all ease-in;
           &:hover {
             background-color: #f3f4f6;
-            @apply text-purple-500;
+            @apply text-blue-500 dark:bg-dark-body-new;
           }
           &.router-link-active.router-link-exact-active {
-            @apply text-purple-500;
+            @apply text-blue-500;
           }
         }
         ul.submenu {

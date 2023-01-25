@@ -4,7 +4,20 @@ use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
-
+    $allowA = array('http://127.0.0.1:8000', 'http://127.0.0.1:5173');
+    if(isset($_SERVER['HTTP_ORIGIN']) && $_SERVER['HTTP_ORIGIN'] != ''){
+        foreach ($allowA as $allow) {
+            # code...
+            if(preg_match('#'.$allow.'#', $_SERVER['HTTP_ORIGIN'])){
+                header('Acess-Control-Allow-Origin: '.$_SERVER['HTTP_ORIGIN']);
+                header('Access-Control-Allow-Credentials: true');
+                header('Access-Control-Allow-Methods:GET,PUT,POST,DELETE,OPTIONS');
+                header('Access-Control-Max-Age: 1728000');
+                header('Access-Control-Allow-Headers: Origin,Content-Type,X-Auth-Token,Authorization,X-Requested-With,Content-Range,Content-Disposition,Content-Description,x-xsrf-token,ip');
+                break;
+            }
+        }
+    }
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance

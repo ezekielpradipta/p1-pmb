@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\JenisQuizController;
 use App\Http\Controllers\Admin\LogUserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\User\DataDiriController;
@@ -40,8 +41,12 @@ Route::middleware('auth:api')->group(function(){
         Route::post("/users/edit/{id}",[AdminUserController::class,'detail']);
         Route::post("/users/delete/{id}",[AdminUserController::class,'delete']);
         Route::post("/users/valid/{id}",[AdminUserController::class,'valid']);
-
-
+        //
+        Route::get('/quiz/jenisQuiz',[JenisQuizController::class,'index']);
+        Route::post('/quiz/jenisQuiz/store',[JenisQuizController::class,'store']);
+        Route::post("/quiz/jenisQuiz/edit/{id}",[JenisQuizController::class,'detail']);
+        Route::post("/quiz/jenisQuiz/delete/{id}",[JenisQuizController::class,'delete']);
+        //
         Route::match(array('get','post'),'/logsuser',[LogUserController::class,'index']);
         Route::get("/logsuser/getFilter",[LogUserController::class,'getFilter']);
         Route::get('/logsuser/export', [LogUserController::class, 'export']);
