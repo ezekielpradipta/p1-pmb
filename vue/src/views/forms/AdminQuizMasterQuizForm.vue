@@ -67,7 +67,21 @@
           <div class="grid xl:grid-cols-2 xl:gap-6 mb-8">
             <div class="col-span-1 h-auto">
               <base-label Title="Opsi 1" class="mb-4"></base-label>
-              <QuillEditor theme="snow" toolbar="full" />
+              <QuillEditor theme="snow" toolbar="full" v-model="model.option_1">
+                <div class="custom-file d-none">
+                  <input
+                    ref="image"
+                    @change="imageUpload($event)"
+                    type="file"
+                    class="custom-file-input"
+                    id="imageUpload"
+                    aria-describedby="imageUploadAddon"
+                  />
+                  <label class="custom-file-label" for="imageUpload"
+                    >Choose file</label
+                  >
+                </div>
+              </QuillEditor>
               <div class="flex items-center mt-4">
                 <input type="checkbox" id="checkbox" @click="checkbox_1" />
                 <label
@@ -85,7 +99,11 @@
             </div>
             <div class="col-span-1 h-auto">
               <base-label Title="Opsi 2" class="mb-4"></base-label>
-              <QuillEditor theme="snow" toolbar="full" />
+              <QuillEditor
+                theme="snow"
+                toolbar="full"
+                v-model="model.option_2"
+              />
               <div class="flex items-center mt-4">
                 <input type="checkbox" id="checkbox" @click="checkbox_2" />
                 <label
@@ -112,6 +130,7 @@
 import { reactive, watch, ref, onMounted } from "vue";
 import { useRoute } from "vue-router";
 import useAdminQuiz from "../../composables/AdminQuiz";
+import BlotFormatter from "quill-blot-formatter";
 import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
@@ -122,7 +141,6 @@ const FilePond = vueFilePond(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview
 );
-
 const route = useRoute();
 const model = reactive({
   nama_quiz: "",
@@ -131,16 +149,29 @@ const model = reactive({
   gambar_quiz: null,
   gambar_quiz_url: null,
   jawaban_benar: [],
+  option_2: "",
+  option_1: "",
+  option_1_image: null,
 });
 const saveGambarQuiz = async (ev) => {
   model.gambar_quiz = ev.target.files[0];
 };
-const checkbox_1 = async () => {
-  model.jawaban_benar = "1";
+const checkbox_1 = async (ev) => {
+  if (ev.target.checked) {
+    model.jawaban_benar.push(1);
+  } else {
+    model.jawaban_benar = model.jawaban_benar.filter((val) => val !== 1);
+  }
 };
-const checkbox_2 = async () => {
-  model.jawaban_benar = "2";
+const checkbox_2 = async (ev) => {
+  if (ev.target.checked) {
+    model.jawaban_benar.push(2);
+  } else {
+    model.jawaban_benar = model.jawaban_benar.filter((val) => val !== 2);
+  }
 };
+
+const onSubmit = async () => {};
 </script>
 
 <style >
